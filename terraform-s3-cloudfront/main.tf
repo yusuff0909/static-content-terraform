@@ -55,6 +55,7 @@ resource "aws_cloudfront_distribution" "static_site-cdn" {
     origin_id                = "S3Origin"
     origin_access_control_id = aws_cloudfront_origin_access_control.static_site_oac.id
   }
+  aliases = [var.cloudfront_distribution_alias]
 
   default_cache_behavior {
     target_origin_id       = "S3Origin"
@@ -83,5 +84,16 @@ resource "aws_cloudfront_distribution" "static_site-cdn" {
     geo_restriction {
       restriction_type = "none"
     }
+  }
+}
+resource "aws_route53_record" "cloudfront_alias" {
+  zone_id = var.zone_id                       # Ensure you have the Route 53 hosted zone ID set in your variables
+  name    = var.cloudfront_distribution_alias # Use variable for subdomain
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.static_site-cdn.domain_name
+    zone_id                = aws_cloudfront_distribution.static_site-cdn.hosted_zone_id
+    evaluate_target_health = true
   }
 }

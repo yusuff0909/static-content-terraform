@@ -68,3 +68,5 @@ This file specifies the outputs of the Terraform configuration, including:
 - Ensure that your AWS credentials are configured properly.
 - The S3 bucket will be created in the default region unless specified otherwise.
 - Make sure to manage your AWS resources to avoid unnecessary charges.
+- How to find your hosted zone ID:
+   In the AWS Console, go to Route 53 → Hosted zones → Click your domain → Copy the Hosted Zone ID from the list.

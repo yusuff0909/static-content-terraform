@@ -13,7 +13,8 @@ variable "cloudfront_distribution_alias" {
 variable "certificate_arn" {
   description = "The ARN of the SSL certificate for the CloudFront distribution"
   type        = string
-  default     = "arn" # Replace with your actual certificate ARN and ensure it is in us-east-1
+  # Replace with your actual certificate ARN and ensure it is in us-east-1
+  default = "arn:aws:acm:us-east-1:123456789012:certificate/your-certificate-id" # Replace with your actual certificate ARN
 }
 
 variable "default_root_object" {
@@ -26,4 +27,10 @@ variable "region" {
   description = "The AWS region to deploy resources in"
   type        = string
   default     = "us-east-1"
+}
+
+variable "zone_id" {
+  description = "The Route 53 hosted zone ID for the domain"
+  type        = string
+  default     = "your zone id" # Replace with your actual hosted zone ID
 }
