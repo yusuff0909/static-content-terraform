@@ -1,25 +1,51 @@
-name: Deploy and Destroy AWS Infrastructure
+# name: Deploy and Destroy AWS Infrastructure
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - main
 
-env:
-  TF_VAR_s3_bucket_name: ${{ secrets.TF_VAR_S3_BUCKET_NAME }}
-  TF_VAR_cloudfront_distribution_alias: ${{ secrets.TF_VAR_CLOUDFRONT_DISTRIBUTION_ALIAS }}
-  TF_VAR_certificate_arn: ${{ secrets.TF_VAR_CERTIFICATE_ARN }}
-  TF_VAR_zone_id: ${{ secrets.TF_VAR_ZONE_ID }}
+# env:
+#   TF_VAR_s3_bucket_name: ${{ secrets.TF_VAR_S3_BUCKET_NAME }}
+#   TF_VAR_cloudfront_distribution_alias: ${{ secrets.TF_VAR_CLOUDFRONT_DISTRIBUTION_ALIAS }}
+#   TF_VAR_certificate_arn: ${{ secrets.TF_VAR_CERTIFICATE_ARN }}
+#   TF_VAR_zone_id: ${{ secrets.TF_VAR_ZONE_ID }}
 
 
-permissions:
-  id-token: write   # Required for OIDC
-  contents: read    # Required to checkout the code
+# permissions:
+#   id-token: write   # Required for OIDC
+#   contents: read    # Required to checkout the code
 
-jobs:
-#   deploy:
+# jobs:
+# #   deploy:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: Checkout repository
+# #         uses: actions/checkout@v4
+
+# #       - name: Configure AWS credentials (OIDC)
+# #         uses: aws-actions/configure-aws-credentials@v4
+# #         with:
+# #           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+# #           aws-region: ${{ secrets.AWS_REGION }}
+# #           role-session-name: github-actions-${{ github.run_id }}
+
+# #       - name: Set up Terraform
+# #         uses: hashicorp/setup-terraform@v3
+# #         with:
+# #           terraform_wrapper: false
+
+# #       - name: Deploy infrastructure
+# #         run: |
+# #           chmod +x script.sh
+# #           ./script.sh
+
+#   destroy:
 #     runs-on: ubuntu-latest
+#     # needs: deploy
+#     # if: always()  # Optional: run destroy even if deploy fails
 
 #     steps:
 #       - name: Checkout repository
@@ -30,40 +56,14 @@ jobs:
 #         with:
 #           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
 #           aws-region: ${{ secrets.AWS_REGION }}
-#           role-session-name: github-actions-${{ github.run_id }}
+#           role-session-name: github-actions-destroy-${{ github.run_id }}
 
 #       - name: Set up Terraform
 #         uses: hashicorp/setup-terraform@v3
 #         with:
 #           terraform_wrapper: false
 
-#       - name: Deploy infrastructure
+#       - name: Destroy infrastructure
 #         run: |
-#           chmod +x script.sh
-#           ./script.sh
-
-  destroy:
-    runs-on: ubuntu-latest
-    # needs: deploy
-    # if: always()  # Optional: run destroy even if deploy fails
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          role-session-name: github-actions-destroy-${{ github.run_id }}
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_wrapper: false
-
-      - name: Destroy infrastructure
-        run: |
-          chmod +x destroy.sh
-          ./destroy.sh
+#           chmod +x destroy.sh
+#           ./destroy.sh

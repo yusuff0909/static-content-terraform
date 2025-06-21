@@ -14,7 +14,7 @@ pushd terraform-s3-cloudfront
 # BUCKET_NAME=$(terraform output -raw s3_bucket_name)
 
 # Empty the S3 bucket before destroying resources
-aws s3 rm s3://$BUCKET_NAME --recursive
+aws s3 rm s3://$s3_bucket_name --recursive
 
 # destroy the infrastructure
 terraform destroy --auto-approve
