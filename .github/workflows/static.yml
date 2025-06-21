@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+env:
+  AWS_REGION: us-east-1  # Should match your Terraform variable
+  AWS_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}  # This should be set to the output of terraform output -raw github_actions_role_arn
 
 permissions:
   id-token: write   # Required for OIDC
