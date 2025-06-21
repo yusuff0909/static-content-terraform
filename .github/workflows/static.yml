@@ -6,6 +6,12 @@ on:
     branches:
       - main
 
+env:
+  TF_VAR_s3_bucket_name: ${{ secrets.TF_VAR_S3_BUCKET_NAME }}
+  TF_VAR_cloudfront_distribution_alias: ${{ secrets.TF_VAR_CLOUDFRONT_DISTRIBUTION_ALIAS }}
+  TF_VAR_certificate_arn: ${{ secrets.TF_VAR_CERTIFICATE_ARN }}
+  TF_VAR_zone_id: ${{ secrets.TF_VAR_ZONE_ID }}
+
 
 permissions:
   id-token: write   # Required for OIDC
@@ -48,8 +54,8 @@ jobs:
   #     - name: Configure AWS credentials (OIDC)
   #       uses: aws-actions/configure-aws-credentials@v4
   #       with:
-  #         role-to-assume: ${{ env.AWS_ROLE_ARN }}
-  #         aws-region: ${{ env.AWS_REGION }}
+  #         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+  #         aws-region: ${{ secrets.AWS_REGION }}
   #         role-session-name: github-actions-destroy-${{ github.run_id }}
 
   #     - name: Set up Terraform

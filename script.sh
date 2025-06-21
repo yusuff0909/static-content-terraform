@@ -26,4 +26,4 @@ aws s3 sync schoolstatic-main/ s3://$BUCKET_NAME
 # Invalidate the CloudFront cache to ensure the latest files are served
 aws cloudfront create-invalidation --distribution-id $CLOUD_FRONT_DISTRIBUTION_ID --paths "/*"
 
-infracost breakdown --path .
+# infracost breakdown --path .
